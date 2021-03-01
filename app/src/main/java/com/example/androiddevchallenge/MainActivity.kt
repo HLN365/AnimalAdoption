@@ -23,6 +23,9 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.androiddevchallenge.model.dogList
+import com.example.androiddevchallenge.ui.adopt.DogAdoptionList
+import com.example.androiddevchallenge.ui.adopt.launchDetailsActivity
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 class MainActivity : AppCompatActivity() {
@@ -30,7 +33,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyTheme {
-                MyApp()
+                DogAdoptionList(
+                    dogList = dogList,
+                    onItemClicked = { launchDetailsActivity(context = this, dog = it) }
+                )
             }
         }
     }
