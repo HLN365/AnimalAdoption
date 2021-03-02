@@ -2,11 +2,8 @@ package com.example.androiddevchallenge.model
 
 import android.os.Parcelable
 import androidx.annotation.DrawableRes
-import androidx.compose.runtime.Immutable
-import com.example.androiddevchallenge.R
 import kotlinx.parcelize.Parcelize
 
-@Immutable
 @Parcelize
 data class Dog(
     val name: String,

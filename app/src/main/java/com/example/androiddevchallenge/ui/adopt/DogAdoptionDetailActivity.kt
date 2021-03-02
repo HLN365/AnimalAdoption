@@ -23,7 +23,6 @@ fun createDetailsActivityIntent(context: Context, dog: Dog): Intent {
 
 class DogAdoptionDetailActivity : AppCompatActivity() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val dog = intent.getParcelableExtra<Dog>(KEY_ARG_DETAILS_CITY_NAME)
