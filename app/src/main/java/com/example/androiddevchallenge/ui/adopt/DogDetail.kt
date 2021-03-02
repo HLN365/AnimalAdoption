@@ -1,3 +1,19 @@
+/*
+ * Copyright 2021 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.example.androiddevchallenge.ui.adopt
 
 import androidx.compose.foundation.rememberScrollState
@@ -15,16 +31,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.SnackbarHostState
-import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.Surface
 import androidx.compose.material.Button
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.SnackbarHost
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,39 +45,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.androiddevchallenge.model.Dog
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.androiddevchallenge.viewmodel.MainViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 @Composable
-fun DogDetail() {
-
-    val viewModel: MainViewModel = viewModel()
-
-    val dog = viewModel.currentDog!!
-
-    val scroll = rememberScrollState(0)
-    val snackbarHostState = SnackbarHostState()
-    val coroutineScope = rememberCoroutineScope()
-
-    Scaffold(
-        snackbarHost = {
-            SnackbarHost(snackbarHostState)
+fun DogDetail(dog: Dog, onAdoptClicked: OnItemClicked) {
+    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
+        val scroll = rememberScrollState(0)
+        Column(
+            modifier = Modifier.background(color = Color.White),
+        ) {
+            Header()
+            Title(dog = dog, onAdoptClicked)
+            Description(dog.description, scroll = scroll)
         }
-    ) {
-        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
-            Column(
-                modifier = Modifier.background(color = Color.White),
-            ) {
-                Header()
-                Title(dog = dog, snackBar = snackbarHostState, coroutineScope = coroutineScope)
-                Description(dog.description, scroll = scroll)
-            }
-            DogImage(dog)
-        }
+        DogImage(dog)
     }
-
 }
 
 @Composable
@@ -94,7 +87,7 @@ private fun DogImage(dog: Dog) {
 }
 
 @Composable
-private fun Title(dog: Dog, snackBar: SnackbarHostState, coroutineScope: CoroutineScope) {
+private fun Title(dog: Dog, onAdoptClicked: OnItemClicked) {
     Column(Modifier.padding(start = 16.dp, top = 100.dp, end = 16.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(
@@ -117,13 +110,7 @@ private fun Title(dog: Dog, snackBar: SnackbarHostState, coroutineScope: Corouti
                 )
                 Spacer(Modifier.height(8.dp))
             }
-            Button(
-                shape = RoundedCornerShape(5),
-                onClick = {
-                    coroutineScope.launch {
-                        snackBar.showSnackbar("You have adopted ${dog.name}")
-                    }
-                }) {
+            Button(shape = RoundedCornerShape(5), onClick = { onAdoptClicked(dog) }) {
                 Text(text = "Adopt")
             }
         }

@@ -25,7 +25,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.androiddevchallenge.ui.adopt.DogAdoptionList
-import com.example.androiddevchallenge.ui.adopt.DogDetail
+import com.example.androiddevchallenge.ui.adopt.launchDetailsActivity
 import com.example.androiddevchallenge.ui.theme.MyTheme
 import com.example.androiddevchallenge.viewmodel.MainViewModel
 
@@ -39,23 +39,9 @@ class MainActivity : AppCompatActivity() {
             MyTheme {
                 DogAdoptionList(
                     dogList = viewModel.dogList,
-                    onItemClicked = {
-                        viewModel.showDog(it)
-                    }
+                    onItemClicked = { launchDetailsActivity(context = this, dog = it) }
                 )
-                val dog = viewModel.currentDog
-                if (dog != null) {
-                    DogDetail()
-                }
             }
-        }
-    }
-
-    override fun onBackPressed() {
-        if (viewModel.currentDog != null) {
-            viewModel.closeDog()
-        } else {
-            super.onBackPressed()
         }
     }
 }
