@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.example.androiddevchallenge.ui.adopt
 
 import android.content.Context
@@ -52,7 +51,8 @@ class DogAdoptionDetailActivity : AppCompatActivity() {
                             "You have adopt ${dog.name},Thanks!",
                             Toast.LENGTH_LONG
                         ).show()
-                    })
+                    }
+                )
             }
         }
     }
