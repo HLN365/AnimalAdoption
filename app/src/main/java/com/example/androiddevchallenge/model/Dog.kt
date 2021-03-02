@@ -50,11 +50,4 @@ val dogList = listOf(
         imageUrl = "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1169911340,907722151&fm=26&gp=0.jpg",
         location = "Russia"
     ),
-    Dog(
-        name = "Happiness",
-        breed = "Niutou Terrier",
-        description = "Niutou Terrier, this breed has two strains-white Niutou Terrier and colored Niutou Terrier. The origin of this species can be traced back to 1835. Everyone believes that this breed was bred from the now extinct British White Terrier. A few years later, in order to meet its appearance standards, the dog was crossed with the Spanish indicator dog, and now the genetic characteristics of the indicator dog can be occasionally found on the dog's body.Bull Terriers are bred for gentlemen, so these gentlemen strongly demand fair play and not compete with fraudsters. The Bull Terrier is trained to defend itself bravely and protect its owner, but it is never allowed to try to challenge (the white breed is called the \"white knight\", which is its honor to this day).People who don't know the dog may not know the Bull Terrier. It is actually a very friendly dog. It relies on its good temperament to reproduce and prosper. Sometimes it will fight and play. Most people may prefer an animal that is relatively balanced in all aspects, rather than special in some aspects. But all in all, the Bull Terrier has the perfect character as a fighting dog. It is lively and agile, and very strong.Naturally active, with a very high degree of excitement, individual dogs or after artificial training will generally be combative, and never know how to give up in dogs. On the contrary, they even have aggressive behavior and hurt other dogs. However, the Bull Terrier is relatively docile, smart and obedient, and especially to the owner, very loyal and obedient, and very friendly, kind and patient to the children.",
-        imageUrl = "https://bkimg.cdn.bcebos.com/pic/ca1349540923dd545b700019d209b3de9c8248bb?x-bce-process=image/watermark,image_d2F0ZXIvYmFpa2U5Mg==,g_7,xp_5,yp_5/format,f_auto",
-        location = "United Kingdom "
-    ),
 )
