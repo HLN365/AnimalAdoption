@@ -15,12 +15,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Text
+import androidx.compose.material.SnackbarHostState
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Button
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.SnackbarHost
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,23 +33,39 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.androiddevchallenge.model.Dog
-import dev.chrisbanes.accompanist.coil.CoilImage
-
-typealias OnAdoptClicked = (Dog) -> Unit
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.androiddevchallenge.viewmodel.MainViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
-fun DogDetail(dog: Dog, onAdoptClicked: OnItemClicked) {
-    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
-        val scroll = rememberScrollState(0)
-        Column(
-            modifier = Modifier.background(color = Color.White),
-        ) {
-            Header()
-            Title(dog = dog, onAdoptClicked)
-            Description(dog.description, scroll = scroll)
+fun DogDetail() {
+
+    val viewModel: MainViewModel = viewModel()
+
+    val dog = viewModel.currentDog!!
+
+    val scroll = rememberScrollState(0)
+    val snackbarHostState = SnackbarHostState()
+    val coroutineScope = rememberCoroutineScope()
+
+    Scaffold(
+        snackbarHost = {
+            SnackbarHost(snackbarHostState)
         }
-        DogImage(dog)
+    ) {
+        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
+            Column(
+                modifier = Modifier.background(color = Color.White),
+            ) {
+                Header()
+                Title(dog = dog, snackBar = snackbarHostState, coroutineScope = coroutineScope)
+                Description(dog.description, scroll = scroll)
+            }
+            DogImage(dog)
+        }
     }
+
 }
 
 @Composable
@@ -74,7 +94,7 @@ private fun DogImage(dog: Dog) {
 }
 
 @Composable
-private fun Title(dog: Dog, onAdoptClicked: OnItemClicked) {
+private fun Title(dog: Dog, snackBar: SnackbarHostState, coroutineScope: CoroutineScope) {
     Column(Modifier.padding(start = 16.dp, top = 100.dp, end = 16.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(
@@ -97,7 +117,13 @@ private fun Title(dog: Dog, onAdoptClicked: OnItemClicked) {
                 )
                 Spacer(Modifier.height(8.dp))
             }
-            Button(shape = RoundedCornerShape(5), onClick = { onAdoptClicked(dog) }) {
+            Button(
+                shape = RoundedCornerShape(5),
+                onClick = {
+                    coroutineScope.launch {
+                        snackBar.showSnackbar("You have adopted ${dog.name}")
+                    }
+                }) {
                 Text(text = "Adopt")
             }
         }
