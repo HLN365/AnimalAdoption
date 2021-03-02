@@ -1,5 +1,6 @@
 package com.example.androiddevchallenge.ui.adopt
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -22,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.model.Dog
@@ -69,11 +71,10 @@ private fun DogItem(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Surface(Modifier.size(width = 100.dp, height = 100.dp), RoundedCornerShape(4.dp)) {
-                    CoilImage(
-                        data = dog.imageUrl,
-                        fadeIn = true,
-                        contentScale = ContentScale.Crop,
-                        contentDescription = null,
+                    Image(
+                        painterResource(dog.picture),
+                        contentDescription = "Picture of dog: ${dog.name}",
+                        contentScale = ContentScale.Crop
                     )
                 }
                 Spacer(Modifier.width(24.dp))
