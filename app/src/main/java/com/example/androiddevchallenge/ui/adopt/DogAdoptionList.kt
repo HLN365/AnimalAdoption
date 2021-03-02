@@ -27,8 +27,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.androiddevchallenge.model.Dog
-import com.example.androiddevchallenge.model.dogList
-import dev.chrisbanes.accompanist.coil.CoilImage
 
 typealias OnItemClicked = (Dog) -> Unit
 
@@ -98,13 +96,5 @@ private fun DogItem(
             Spacer(Modifier.height(8.dp))
             Divider(color = Color.LightGray)
         }
-    }
-}
-
-@Preview
-@Composable
-fun DogItemPreview() {
-    MaterialTheme() {
-        DogAdoptionList(dogList = dogList, onItemClicked = {})
     }
 }
